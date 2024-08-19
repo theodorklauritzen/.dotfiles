@@ -1,3 +1,5 @@
 [user]
 	name = Theodor Kvalsvik Lauritzen
 	email = 19690242+theodorklauritzen@users.noreply.github.com
+[push]
+	autoSetupRemote = true
