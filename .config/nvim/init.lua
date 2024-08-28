@@ -864,6 +864,29 @@ require('lazy').setup({
       vim.g.vimtex_view_skim_reading_bar = 1
     end
   },
+  {
+    "github/copilot.vim",
+    config = function()
+
+      vim.keymap.set('i', '<C-U>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false
+      })
+
+      vim.g.copilot_no_tab_map = true
+
+      vim.keymap.set('n', '<leader>ce', ':Copilot enable<CR>', {
+        desc = 'Enable Copilot',
+      })
+      
+      vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>', {
+        desc = 'Disable Copilot',
+      })
+
+      vim.cmd("Copilot disable")
+
+    end
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
