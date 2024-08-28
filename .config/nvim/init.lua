@@ -235,6 +235,17 @@ require('lazy').setup({
         col = 1
       },
     },
+    config = function()
+      require('gitsigns').setup()
+
+      vim.keymap.set('n', '<leader>gb', ':Gitsigns toggle_current_line_blame<CR>', {
+        desc = '[G]it [B]lame',
+      })
+
+      vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis<CR>', {
+        desc = '[G]it [D]iffthis'
+      })
+    end
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -266,6 +277,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
     end,
@@ -885,7 +897,7 @@ require('lazy').setup({
 
       vim.cmd("Copilot disable")
 
-    end
+    end,
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
