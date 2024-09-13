@@ -164,7 +164,15 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'micangl/cmp-vimtex',
 
-  { 'nvim-tree/nvim-tree.lua', opts = {} },
+  { 'nvim-tree/nvim-tree.lua', opts = {
+    update_focused_file = {
+      enable = true,
+      update_cwd = true
+    },
+    renderer = {
+      highlight_opened_files = "all",
+    },
+  } },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -245,6 +253,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis<CR>', {
         desc = '[G]it [D]iffthis'
       })
+
+      vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#00ff00' })
+      vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#EB9834' })
+      vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#ff0000' })
     end
   },
 
@@ -271,6 +283,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
+        { 'g', group = '[G]oto' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
@@ -944,9 +957,6 @@ require('lazy').setup({
   },
 })
 
-vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#00ff00' })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#EB9834' })
-vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#ff0000' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
