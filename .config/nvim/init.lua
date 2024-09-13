@@ -167,10 +167,7 @@ require('lazy').setup({
   { 'nvim-tree/nvim-tree.lua', opts = {
     update_focused_file = {
       enable = true,
-      update_cwd = true
-    },
-    renderer = {
-      highlight_opened_files = "all",
+      update_cwd = false
     },
   } },
 
