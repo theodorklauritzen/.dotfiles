@@ -9,7 +9,7 @@ $character"""
 
 [directory]
 format = "[$path]($style)"
-style = "bold green"              # Customize the style as you prefer
+style = "bold blue"              # Customize the style as you prefer
 truncation_length = 0             # Show the full path
 
 # Customize the git_branch module

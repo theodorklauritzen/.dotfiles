@@ -217,12 +217,12 @@ require('lazy').setup({
         follow_files = true
       },
       auto_attach = true,
-      attach_to_untracked = false,
+      attach_to_untracked = true,
       current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-        delay = 0,
+        delay = 50,
         ignore_whitespace = false,
         virt_text_priority = 100,
       },
@@ -249,6 +249,10 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis<CR>', {
         desc = '[G]it [D]iffthis'
+      })
+
+      vim.keymap.set('n', '<leader>gr', ':Gitsigns reset_hunk<CR>', {
+        desc = '[G]it [R]eset Hunk'
       })
 
       vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#00ff00' })
