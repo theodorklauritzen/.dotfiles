@@ -1,0 +1,19 @@
+
+# Add a new line before the prompt symbol
+add_newline = true
+
+# Set the format for the prompt
+format = """
+($git_branch )$directory
+$character"""
+
+[directory]
+format = "[$path]($style)"
+style = "bold green"              # Customize the style as you prefer
+truncation_length = 0             # Show the full path
+
+# Customize the git_branch module
+[git_branch]
+format = "[$symbol$branch]($style)"  # Removes "on" and just shows the branch name
+disabled = false              # Make sure this module is enabled
+
