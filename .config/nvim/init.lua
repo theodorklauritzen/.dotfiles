@@ -254,8 +254,8 @@ require('lazy').setup({
         desc = '[G]it [B]lame',
       })
 
-      vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis<CR>', {
-        desc = '[G]it [D]iffthis'
+      vim.keymap.set('n', '<leader>gt', ':Gitsigns diffthis<CR>', {
+        desc = '[G]it Diff[T]his'
       })
 
       vim.keymap.set('n', '<leader>gr', ':Gitsigns reset_hunk<CR>', {
