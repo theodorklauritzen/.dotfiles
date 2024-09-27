@@ -695,6 +695,24 @@ require('lazy').setup({
           --   end,
           -- },
         },
+        config = function()
+          local ls = require("luasnip")
+          local s = ls.snippet
+          local t = ls.text_node
+          local i = ls.insert_node
+
+          local extras = require("luasnip.extras")
+          local rep = extras.rep
+
+          ls.add_snippets("tex", {
+            s("\\begin", {
+              t("\\begin{"), i(1), t("}"),
+              t({"", "\t"}), i(2),
+              t({"", "\\end{"}), rep(1),
+              t("}")
+            }),
+          })
+        end,
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -706,7 +724,9 @@ require('lazy').setup({
     },
     config = function()
       -- See `:help cmp`
+      require("luasnip.loaders.from_lua").load()
       local cmp = require 'cmp'
+
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
@@ -777,12 +797,21 @@ require('lazy').setup({
           { name = 'buffer' },
         },
       }
+
       cmp.setup.filetype("tex", {
         sources = {
+          { name = 'luasnip', option = { use_show_condition = false } },
           { name = 'vimtex' },
           { name = 'buffer' },
         }
       })
+
+      -- TODO: This is not optimal, this should not be needed, but it works for now
+      vim.keymap.set({"i", "s"}, "<C-k>", function()
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        end
+      end, {silent = true})
     end,
   },
 
