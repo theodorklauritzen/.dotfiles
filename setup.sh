@@ -10,3 +10,7 @@ ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew bundle --file ~/.dotfiles/Brewfile
+
+# For macOS
+# Longer screenshot time
+# defaults write com.apple.screencaptureui thumbnailExpiration -float 30.0
