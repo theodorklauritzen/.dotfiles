@@ -616,7 +616,8 @@ require('lazy').setup({
 
       vim.filetype.add({
         extension = {
-          ccc = "java"
+          ccc = "java",
+          g4 = "java"
         }
       })
 

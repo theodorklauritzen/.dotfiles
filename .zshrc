@@ -37,6 +37,9 @@ export PATH="$PATH:/Users/theodorkvalsviklauritzen/Downloads/apache-maven-3.9.9/
 
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"
 
+# VSCode
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
