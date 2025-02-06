@@ -37,6 +37,9 @@ export LC_CTYPE=en_US.UTF-8
 
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"
 
+# Bison 3.8 instead of 2.3, used for the course TDT4205
+export PATH="$(brew --prefix)/opt/bison/bin:$PATH"
+
 # VSCode
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 

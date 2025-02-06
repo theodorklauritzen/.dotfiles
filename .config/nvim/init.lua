@@ -69,7 +69,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 vim.opt.spelllang = { 'en', 'nb' }
-vim.opt.spell = true
+vim.opt.spell = false
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
