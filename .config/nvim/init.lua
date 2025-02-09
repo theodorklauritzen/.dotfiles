@@ -940,17 +940,61 @@ require('lazy').setup({
 
       vim.g.copilot_no_tab_map = true
 
-      vim.keymap.set('n', '<leader>ce', ':Copilot enable<CR>', {
+      vim.keymap.set('n', '<leader>cE', ':Copilot enable<CR>', {
         desc = 'Enable Copilot',
       })
 
-      vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>', {
+      vim.keymap.set('n', '<leader>cD', ':Copilot disable<CR>', {
         desc = 'Disable Copilot',
+      })
+
+      vim.keymap.set('n', '<leader>cs', '<Plug>(copilot-suggest)', {
+        desc = 'Copilot Suggest',
       })
 
       vim.cmd("Copilot disable")
 
     end,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      "github/copilot.vim", -- or zbirenbaum/copilot.lua
+      "nvim-lua/plenary.nvim", -- for curl, log and async functions
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+      mappings = {
+        accept_diff = {
+          normal = '<C-y>',
+          insert = '<C-y>',
+        },
+      },
+      prompts = {
+        Docs = {
+          prompt = 'Please add documentation comments to the selected code. Do not include linenumbers.',
+          system_prompt = '',
+          mapping = '<leader>cd',
+          description = 'Copilot Documentation',
+        },
+      },
+    },
+    config = function(_, opts)
+      local chat = require("CopilotChat")
+      chat.setup(opts)
+
+      vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>', {
+        desc = 'Copilot Chat',
+      })
+      -- vim.keymap.set('n', '<leader>cd', ':CopilotChatDocs<CR>', {
+      --   desc = 'Copilot Document Code',
+      -- })
+      -- vim.keymap.set('v', '<leader>cd', ':CopilotChatDocs<CR>', {
+      --   desc = 'Copilot Document Code',
+      -- })
+    end,
+    -- See Commands section for default commands if you want to lazy load on them
   },
   {
     "antosha417/nvim-lsp-file-operations",
