@@ -978,6 +978,12 @@ require('lazy').setup({
           mapping = '<leader>cd',
           description = 'Copilot Documentation',
         },
+        Explain = {
+          prompt = 'Please explain how the following code works or what the following error message means.',
+          system_prompt = '',
+          mapping = '<leader>ce',
+          description = 'Copilot Explain',
+        },
       },
     },
     config = function(_, opts)
@@ -987,12 +993,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>', {
         desc = 'Copilot Chat',
       })
-      -- vim.keymap.set('n', '<leader>cd', ':CopilotChatDocs<CR>', {
-      --   desc = 'Copilot Document Code',
-      -- })
-      -- vim.keymap.set('v', '<leader>cd', ':CopilotChatDocs<CR>', {
-      --   desc = 'Copilot Document Code',
-      -- })
     end,
     -- See Commands section for default commands if you want to lazy load on them
   },
