@@ -188,6 +188,14 @@ require('lazy').setup({
     filters = {
       enable = false,
     },
+    -- actions = {
+    --   open_file = {
+    --     resize_window = false,
+    --   },
+    -- },
+    view = {
+      adaptive_size = true
+    },
   } },
 
   -- NOTE: Plugins can also be added by using a table,
