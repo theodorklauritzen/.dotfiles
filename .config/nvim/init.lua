@@ -173,6 +173,9 @@ require('lazy').setup({
       enable = true,
       update_cwd = false
     },
+    filters = {
+      enable = false,
+    },
   } },
 
   -- NOTE: Plugins can also be added by using a table,
@@ -973,7 +976,7 @@ require('lazy').setup({
       },
       prompts = {
         Docs = {
-          prompt = 'Please add documentation comments to the selected code. Do not include linenumbers.',
+          prompt = 'Please add documentation comments to the selected code. Do not include linenumbers. If the selected text is only a funciton, only add documentation to that function and don\'t add any additional comments.',
           system_prompt = '',
           mapping = '<leader>cd',
           description = 'Copilot Documentation',
@@ -993,6 +996,28 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>', {
         desc = 'Copilot Chat',
       })
+
+      vim.keymap.set('n', '<leader>cr', function()
+        local diagnostics = vim.lsp.diagnostic.get_line_diagnostics(0)
+        local error_message = ""
+
+        -- Loop through diagnostics to find the first error message
+        for _, diagnostic in ipairs(diagnostics) do
+          if diagnostic.severity == vim.lsp.protocol.DiagnosticSeverity.Error then
+            error_message = diagnostic.message
+            break
+          end
+        end
+
+        -- If no error message is found, use a default prompt
+        if error_message == "" then
+          error_message = vim.api.nvim_get_current_line()
+        end
+
+        vim.cmd("CopilotChat Explain this error: " .. error_message)
+      end, {
+          desc = 'Copilot Explain Error'
+        })
     end,
     -- See Commands section for default commands if you want to lazy load on them
   },
