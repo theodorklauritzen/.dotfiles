@@ -166,8 +166,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'micangl/cmp-vimtex',
-
   { 'nvim-tree/nvim-tree.lua', opts = {
     update_focused_file = {
       enable = true,
@@ -240,6 +238,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>g', group = '[G]it' },
+        { '<leader>l', group = '[L]atex' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
     end,
@@ -505,61 +504,59 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'L3MON4D3/LuaSnip',
+    build = (function()
+      -- Build Step is needed for regex support in snippets.
+      -- This step is not supported in many windows environments.
+      -- Remove the below condition to re-enable on windows.
+      if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+        return
+      end
+      return 'make install_jsregexp'
+    end)(),
+    dependencies = {
+      -- `friendly-snippets` contains a variety of premade snippets.
+      --    See the README about individual language/framework/plugin snippets:
+      --    https://github.com/rafamadriz/friendly-snippets
+      -- {
+      --   'rafamadriz/friendly-snippets',
+      --   config = function()
+      --     require('luasnip.loaders.from_vscode').lazy_load()
+      --   end,
+      -- },
+    },
+    config = function()
+      local ls = require("luasnip")
+      local s = ls.snippet
+      local t = ls.text_node
+      local i = ls.insert_node
 
+      local extras = require("luasnip.extras")
+      local rep = extras.rep
+
+      ls.add_snippets("tex", {
+        s("\\begin", {
+          t("\\begin{"), i(1), t("}"),
+          t({"", "\t"}), i(2),
+          t({"", "\\end{"}), rep(1),
+          t("}")
+        }),
+      })
+    end,
+  },
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
-      {
-        'L3MON4D3/LuaSnip',
-        build = (function()
-          -- Build Step is needed for regex support in snippets.
-          -- This step is not supported in many windows environments.
-          -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
-        dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
-        },
-        config = function()
-          local ls = require("luasnip")
-          local s = ls.snippet
-          local t = ls.text_node
-          local i = ls.insert_node
-
-          local extras = require("luasnip.extras")
-          local rep = extras.rep
-
-          ls.add_snippets("tex", {
-            s("\\begin", {
-              t("\\begin{"), i(1), t("}"),
-              t({"", "\t"}), i(2),
-              t({"", "\\end{"}), rep(1),
-              t("}")
-            }),
-          })
-        end,
-      },
+      'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-
       -- Adds other completion capabilities.
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-      -- 'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
@@ -631,7 +628,6 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
-          -- { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
@@ -760,17 +756,6 @@ require('lazy').setup({
     end,
   },
   {
-    "lervag/vimtex",
-    lazy = false,
-    -- tag = "v2.15", -- uncomment to pin to a specific release
-    init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = "skim"
-      vim.g.vimtex_view_skim_sync = 1
-      vim.g.vimtex_view_skim_reading_bar = 1
-    end
-  },
-  {
     "antosha417/nvim-lsp-file-operations",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -784,6 +769,7 @@ require('lazy').setup({
     end,
   },
 
+  { import = 'plugins.latex'},
   { import = 'plugins.copilot' },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
