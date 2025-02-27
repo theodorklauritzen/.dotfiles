@@ -6,8 +6,6 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
-
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
@@ -32,9 +30,6 @@ alias pip="pip3"
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-# Maven path, this should not be commited
-#export PATH="$PATH:/Users/theodorkvalsviklauritzen/Downloads/apache-maven-3.9.9/bin"
-
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"
 
 # Bison 3.8 instead of 2.3, used for the course TDT4205
@@ -43,12 +38,15 @@ export PATH="$(brew --prefix)/opt/bison/bin:$PATH"
 # VSCode
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
-#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 eval "$(starship init zsh)"
 
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# eval "$(jenv init -)" # This takes ages to load
+
+# To test the load speed run:
+# /usr/bin/time /bin/zsh -i -c exit
+
+autoload -Uz compinit && compinit -C # This needs to run last to not slow down startup time
