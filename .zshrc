@@ -30,6 +30,11 @@ alias pip="pip3"
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
+# Set ssh-agent to bitwarden
+if [ "$(hostname)" = "Theodors-MacBook-Pro.local" ]; then
+    export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
+fi
+
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"
 
 # Bison 3.8 instead of 2.3, used for the course TDT4205
