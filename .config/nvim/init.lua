@@ -140,6 +140,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd("BufReadPre", {
+  pattern = "*",
+  callback = function()
+    local size = vim.fn.getfsize(vim.fn.expand("<afile>"))
+    if size > (8 * 1024 * 1024) then -- 16 MB
+      -- vim.opt_local.swapfile = false
+      -- Optionally, you can also disable syntax highlighting or other features
+      -- vim.opt_local.syntax = "off"
+      vim.notify("File too large to open", vim.log.levels.ERROR)
+      vim.cmd("q!")
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
