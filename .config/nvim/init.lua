@@ -189,15 +189,23 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-  -- { 'echasnovski/mini.pairs', opts = {} },
+
   {
     'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {},
+    event = 'InsertEnter',
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require('nvim-autopairs').setup {}
+      -- If you want to automatically add `(` after selecting a function or method
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      local cmp = require 'cmp'
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    end,
   },
-
   -- HTML autoclose tags
   { 'windwp/nvim-ts-autotag', opts = {} },
+
   { import = 'plugins.gitsigns' },
 
 
@@ -225,7 +233,7 @@ require('lazy').setup({
       -- Document existing key chains
       require('which-key').add {
         { 'g', group = '[G]oto' },
-        { '<leader>c', group = '[C]ode' },
+        { '<leader>c', group = '[C]ode / [C]opilot' },
         { '<leader>d', group = '[D]iagnostics' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -551,6 +559,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      -- 'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
@@ -622,6 +631,7 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
+          -- { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
@@ -643,6 +653,19 @@ require('lazy').setup({
         end
       end, {silent = true})
     end,
+  },
+
+  -- To show the function signature while editing the argumnets
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'InsertEnter',
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "single"
+      },
+      hint_prefix = "",
+    },
   },
 
   { -- You can easily change to a different colorscheme.
@@ -803,6 +826,10 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+  checker = {
+    enabled = true, -- check for plugin updates periodically
+    notify = false, -- notify on update
+  }, -- automatically check for plugin updates
 })
 
 
