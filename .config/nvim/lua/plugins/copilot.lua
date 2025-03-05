@@ -39,6 +39,7 @@ return {
           insert = '<C-y>',
         },
       },
+      model = 'claude-3.7-sonnet',
       prompts = {
         Docs = {
           prompt = "Please add documentation comments to the selected code. Do not include linenumbers. If the selected text is only a funciton, only add documentation to that function and don't edit aything inside the function or the function signature. If the function is written in typescript, do not include the types in the JSDoc comment.",
@@ -78,6 +79,8 @@ return {
         if error_message == '' then
           error_message = vim.api.nvim_get_current_line()
         end
+
+        error_message = error_message:gsub("\n", " ")
 
         vim.cmd('CopilotChat Explain this error: ' .. error_message)
       end, {

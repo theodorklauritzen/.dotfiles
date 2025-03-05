@@ -218,9 +218,9 @@ require('lazy').setup({
     config = function()
       require('nvim-autopairs').setup {}
       -- If you want to automatically add `(` after selecting a function or method
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      local cmp = require 'cmp'
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+      -- local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      -- local cmp = require 'cmp'
+      -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
   -- HTML autoclose tags
@@ -683,7 +683,13 @@ require('lazy').setup({
         border = "single"
       },
       hint_prefix = "",
+      always_trigger = false,
     },
+    config = function()
+      vim.keymap.set('n', '<Leader>k', function()
+       vim.lsp.buf.signature_help()
+      end, { silent = true, noremap = true, desc = 'Toggle Signature' })
+    end,
   },
 
   { -- You can easily change to a different colorscheme.
