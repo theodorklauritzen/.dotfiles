@@ -9,6 +9,9 @@ ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Install starship
+curl -sS https://starship.rs/install.sh | sh
+
 brew bundle --file ~/.dotfiles/Brewfile
 
 # For macOS
