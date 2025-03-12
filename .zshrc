@@ -1,4 +1,8 @@
 
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt SHARE_HISTORY
 
 # Install Zinit - package manager for zsh
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -40,6 +44,10 @@ if [ "$(hostname)" = "Theodors-MacBook-Pro.local" ]; then
     export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
 fi
 
+if [ "$(hostname)" = "theodor-HP-PC" ]; then
+    . "$HOME/.cargo/env"
+fi
+
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"
 
 # VSCode
@@ -57,3 +65,7 @@ export PATH="$HOME/.jenv/bin:$PATH"
 # /usr/bin/time /bin/zsh -i -c exit
 
 autoload -Uz compinit && compinit -C # This needs to run last to not slow down startup time
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
