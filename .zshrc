@@ -59,13 +59,22 @@ export PATH="$PATH:$HOME/.rvm/bin"
 eval "$(starship init zsh)"
 
 export PATH="$HOME/.jenv/bin:$PATH"
-# eval "$(jenv init -)" # This takes ages to load
+# if [ "$(hostname)" = "C02YPEK7LVCG" ]; then
+#     eval "$(jenv init -)" # This takes ages to load
+# fi
 
 # To test the load speed run:
 # /usr/bin/time /bin/zsh -i -c exit
 
-autoload -Uz compinit && compinit -C # This needs to run last to not slow down startup time
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ "$(hostname)" = "C02YPEK7LVCG" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+
+if [ "$(uname)" = "Darwin" ]; then
+    autoload -Uz compinit && compinit -C # This needs to run last to not slow down startup time
+fi
+
