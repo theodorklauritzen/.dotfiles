@@ -44,8 +44,8 @@ if [ "$(hostname)" = "Theodors-MacBook-Pro.local" ]; then
     export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
 fi
 
-if [ "$(hostname)" = "theodor-HP-PC" ]; then
-    . "$HOME/.cargo/env"
+if [ "$(hostname)" = "theodor-debian" ]; then
+    . "$HOME/.nvm/nvm.sh"
 fi
 
 export PATH="./node_modules/.bin:/Users/theodorkl/Documents/javacc-javacc-7.0.13/scripts:/usr/local/opt/node@20/bin:$PATH"

@@ -1,5 +1,5 @@
 
-if [ "$(hostname)" = "theodor-HP-PC" ]; then
+if [ "$(hostname)" = "theodor-debian" ]; then
     export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 fi
 
