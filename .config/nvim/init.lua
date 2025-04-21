@@ -289,6 +289,8 @@ require('lazy').setup({
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
+
+      { 'ray-x/lsp_signature.nvim', config = true }
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -682,14 +684,10 @@ require('lazy').setup({
       handler_opts = {
         border = "single"
       },
+      hint_enable = false,
       hint_prefix = "",
-      always_trigger = false,
+      toggle_key = "<C-S>",
     },
-    config = function()
-      vim.keymap.set('n', '<Leader>k', function()
-       vim.lsp.buf.signature_help()
-      end, { silent = true, noremap = true, desc = 'Toggle Signature' })
-    end,
   },
 
   { -- You can easily change to a different colorscheme.
